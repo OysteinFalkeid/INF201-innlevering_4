@@ -73,6 +73,30 @@ print()
 print('Task 0: Warmup exercise (0 points)')
 print()
 
+from pathlib import Path 
+
+def create_project_folder(project_name: str = 'No name deffined') -> None:
+    print(f'project name is set to \"{project_name}\"')
+    path = Path.cwd()
+    project_dir = path / Path(project_name)
+    
+    if not project_dir.is_dir(): #tests if directory exists
+        project_dir.mkdir()
+        print(f'\"{project_name}\" created')
+        
+        sub_dir_1 = project_dir / Path('data')
+        sub_dir_1.mkdir()
+        sub_dir_2 = project_dir / Path('output')
+        sub_dir_2.mkdir()
+        
+    else: # Aborts if the directory exists
+        print(f'A directory with name \"{project_name}\" already exists')
+
+print('enter project name: ', end='')
+create_project_folder(input())
+print()
+
+
 
 
 
