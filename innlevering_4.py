@@ -1,3 +1,10 @@
+import sys
+from pathlib import Path
+
+file = Path('.') / Path('terminal.txt')
+
+sys.stdout = open(file, 'w')
+
 print('innlevering 4')
 print()
 
@@ -30,14 +37,14 @@ print()
 # and something you should learn in this course. It might help to take notes and discuss with your partner.
 
 #-------------------------------------------------------------------------------------------------------------------
-print('Group members')
+print('Group members:')
 print()
 # Group members
 
-print('Øystein Falkeid')
+print('Oystein Falkeid')
 print('e-mail: oystein.falkeid@nmbu.no')
 print()
-print('Eirik Mentyjærvi')
+print('Eirik Mentyjaervi')
 print('e-mail: ')   
 print()                  
 
@@ -70,7 +77,6 @@ print()
 # If you want to check your solution or run into trouble, watch this video.
 
 #-------------------------------------------------------------------------------------------------------------------
-'''
 print('Task 0: Warmup exercise (0 points)')
 print()
 
@@ -94,9 +100,10 @@ def create_project_folder(project_name: str = 'No name deffined') -> None:
         print(f'A directory with name \"{project_name}\" already exists')
 
 print('enter project name: ', end='')
-create_project_folder(input())
+name = input()
 print()
-'''
+create_project_folder(name)
+print()
 
 #-------------------------------------------------------------------------------------------------------------------
 
