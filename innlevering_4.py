@@ -70,6 +70,7 @@ print()
 # If you want to check your solution or run into trouble, watch this video.
 
 #-------------------------------------------------------------------------------------------------------------------
+'''
 print('Task 0: Warmup exercise (0 points)')
 print()
 
@@ -95,10 +96,106 @@ def create_project_folder(project_name: str = 'No name deffined') -> None:
 print('enter project name: ', end='')
 create_project_folder(input())
 print()
+'''
 
-# testing pull from git
+#-------------------------------------------------------------------------------------------------------------------
+
+# Task 1: Exercise folder creation (5 points)
+
+# Write a program that creates folders from a list of exercises and a list of students. 
+# In the following, the folder structure is explained:
+
+# 1 The list of exercises incorporates simple assignments followed by project assignments
+# with a part "a" and a part "b". Write a function that generates this list for a given 
+# variable project_assignments_start (the number of the exercise at which the project 
+# assignments start) and a given total number of exercises. Use list comprehensions to 
+# generate this list compactly.
+
+# As an example, if the project assignments start at exercise 3 and there is a total 
+# number of 4 exercises, the list of exercises which is returned by the function call 
+# exercises = create_exercises(total_number=4, project_assignments_start=3) takes the form
+
+#----------------------------------------------
+# exercises = ["1","2","3a","3b","4a","4b"]   -
+#----------------------------------------------
+
+# 2 Assume that you are given a list of students and the exercise list described above in (1.). 
+# Then, your program should create a folder for each exercise, and the program should 
+# create a folder for each student. Your program should create the exercise folders in 
+# a parent folder "projects". Folders for exercise X should have the format "exercise_X". 
+# Hence, the folder structure should be "projects/exercise_X/Y/", where X is the exercise, 
+# and Y is the student's name. That is, given the student list
+
+#-----------------------------------------------
+# students = ["Ole", "Sarah"]                  -
+#-----------------------------------------------
+
+# and a total number of 4 exercises where the project assignments start at exercise 3, 
+# your program should generate the folders
+
+#-----------------------------------------------
+# projects/exercise_1/Ole                      -
+# projects/exercise_1/Sarah                    -
+# projects/exercise_2/Ole                      -
+# projects/exercise_2/Sarah                    -
+# projects/exercise_3a/Ole                     -
+# projects/exercise_3b/Ole                     -
+# projects/exercise_3a/Sarah                   -
+# projects/exercise_3b/Sarah                   -
+# projects/exercise_4a/Ole                     -
+# projects/exercise_4b/Ole                     -
+# projects/exercise_4a/Sarah                   -
+# projects/exercise_4b/Sarah                   -
+#-----------------------------------------------
+
+# Note that your program should work for a general list of students, 
+# a general number of exercises, and a general variable project_assignments_start. 
+
+# Work on this task as follows:
+
+# 1 Write a function that generates the exercise list. 
+# Use list comprehensions to ensure the code of your function 
+# (including the function header) does not exceed four lines.
+
+# 2 Create a list of students. You can start with the list that is provided in the example.
+
+# 3 Use the concepts learned in the lecture to create the specified file structure. 
+# Ensure that your code works even if the folders already exist.
+
+# 4 Print out the generated file structure with the glob function.
+
+#-------------------------------------------------------------------------------------------------------------------
+
+print('Task 1: Exercise folder creation (5 points)')
+print()
 
 
+from pathlib import Path
+
+projects_dir = Path('.') / Path('projects')
+
+def create_exercises(total_number: int = 0, project_assignments_start: int = 0) -> list[str]:
+    return [f'exercise_{i}' if i < project_assignments_start else f'exercise_{i}{chr(65 + j)}' for i in range(total_number) for j in (range(2) if i >= project_assignments_start else [0])]
+
+exercises = create_exercises(4, 2)
+students = ['Ole', 'Sarah']
+
+if not projects_dir.is_dir():
+    projects_dir.mkdir()
+
+for exercise in exercises:
+    exercise_dir = projects_dir / Path(exercise)
+    if not exercise_dir.is_dir():
+        exercise_dir.mkdir()
+    for student in students:
+        student_dir = exercise_dir / Path(student)
+        if not student_dir.is_dir():
+            student_dir.mkdir()
+
+directories = list(projects_dir.glob('*/*'))
+
+for dir in directories:
+    print(dir)
 
 
 
