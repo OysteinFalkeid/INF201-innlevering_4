@@ -1,3 +1,4 @@
+'''
 import sys
 from pathlib import Path
 
@@ -84,8 +85,7 @@ from pathlib import Path
 
 def create_project_folder(project_name: str = 'No name deffined') -> None:
     print(f'project name is set to \"{project_name}\"')
-    path = Path.cwd()
-    project_dir = path / Path(project_name)
+    project_dir = Path('.') / Path(project_name)
     
     if not project_dir.is_dir(): #tests if directory exists
         project_dir.mkdir()
@@ -96,6 +96,15 @@ def create_project_folder(project_name: str = 'No name deffined') -> None:
         sub_dir_2 = project_dir / Path('output')
         sub_dir_2.mkdir()
         
+        directories = list(project_dir.glob('*'))
+        
+        print('Directories created:')
+        for dir in directories:
+            print(dir)
+        
+        with open((sub_dir_1 / Path('data.txt')), 'w', encoding='utf_8') as f: #creates an empty txt file.
+            pass
+        
     else: # Aborts if the directory exists
         print(f'A directory with name \"{project_name}\" already exists')
 
@@ -103,6 +112,7 @@ print('enter project name: ', end='')
 name = input()
 print()
 create_project_folder(name)
+
 print()
 
 #-------------------------------------------------------------------------------------------------------------------
@@ -172,37 +182,106 @@ print()
 # 4 Print out the generated file structure with the glob function.
 
 #-------------------------------------------------------------------------------------------------------------------
-
+'''
 print('Task 1: Exercise folder creation (5 points)')
 print()
 
 
-from pathlib import Path
+from pathlib import Path # imports Path to be used in the creation of directories
 
-projects_dir = Path('.') / Path('projects')
+projects_dir = Path('.') / Path('projects') # the directori to be filled with exercises
 
-def create_exercises(total_number: int = 0, project_assignments_start: int = 0) -> list[str]:
-    return [f'exercise_{i}' if i < project_assignments_start else f'exercise_{i}{chr(65 + j)}' for i in range(total_number) for j in (range(2) if i >= project_assignments_start else [0])]
+def create_exercises(total_number: int = 0, project_assignments_start: int = 0) -> list[str]: # returns a list of exercises that confines to the spesified perameters
+    return [f'{i+1}' 
+            if i < project_assignments_start else f'{i+1}{chr(65 + j)}' 
+            for i in range(total_number) 
+            for j in (range(2) if i >= project_assignments_start else [0])]
 
-exercises = create_exercises(4, 2)
-students = ['Ole', 'Sarah']
+exercises = create_exercises(4, 2) # the exercises spessified
+students = ['Ole', 'Sarah'] # the students spesified
 
-if not projects_dir.is_dir():
+if not projects_dir.is_dir(): # tests if the directory exitsts
     projects_dir.mkdir()
 
-for exercise in exercises:
-    exercise_dir = projects_dir / Path(exercise)
-    if not exercise_dir.is_dir():
+for exercise in exercises: # a for loop to test for and create if directories not exixts
+    exercise_dir = projects_dir / Path('exercise_' + exercise)
+    if not exercise_dir.is_dir(): # tests if the directory exitsts
         exercise_dir.mkdir()
     for student in students:
         student_dir = exercise_dir / Path(student)
-        if not student_dir.is_dir():
+        if not student_dir.is_dir(): # tests if the directory exitsts
             student_dir.mkdir()
 
-directories = list(projects_dir.glob('*/*'))
+directories = list(projects_dir.glob('*/*')) # glob to list all directories in project
 
+print('these directories are created:')
 for dir in directories:
     print(dir)
+    
+print()
+    
+#-------------------------------------------------------------------------------------------------------------------
+
+# Task 2: Challenge Exercise (0 points)
+
+# In this task, you will implement a function to compute the matrix-vector product using two different approaches:
+
+# 1 A custom implementation using a list of lists (your own data format).
+# 2 A NumPy implementation.
+
+
+# Proceed as follows:
+
+# 1 Implement a Custom Matrix-Vector Product Function:
+# Define a function matrix_vector_product(matrix, vector) that takes a matrix (as a list of lists) and a vector (as a list) and returns the resulting vector. Try to implement this function as efficiently as possible.
+
+# 2 Implement a NumPy Matrix-Vector Product Function:
+# Use NumPy to create a function numpy_matrix_vector_product(matrix, vector) that performs the same operation, but uses the numpy.dot function.
+
+# 3 Timing the Implementations:
+# Use the time module to measure and compare the execution time of both implementations. Generate a random matrix and vector for testing.
+# Check that the results of your method and numpy match. You can use the np.allclose function. 
+
+#-------------------------------------------------------------------------------------------------------------------
+
+from typing import Union
+import numpy
+import random
+ 
+print('Task 2: Challenge Exercise (0 points)')
+print()
+
+dimentions = random.randrange(3,10,1)
+
+matrix = [[random.randint(0,100) for i in range(dimentions)] for j in range(dimentions)]
+vector = [ random.randint(0,100) for i in range(dimentions)]
+
+for row in matrix:
+    print(row)
+print()
+print(vector)
+print()
+
+def matrix_vector_product(matrix: list[list[float]], vector: list[list[float]]) -> list[list[float]]:
+    dot_product = [ 0 for j in vector]
+    for ma_row in matrix:
+        for vec_index, vec_value in enumerate(vector):
+            for ma_value in ma_row:
+                dot_product[vec_index] += ma_value * vec_value
+                print(f' {dot_product}  {ma_value}  {vec_value}')
+    return dot_product
+
+def numpy_matrix_vector_product(matrix: Union[list[list[float]], numpy.ndarray], vector: Union[list[list[float]], numpy.ndarray]) -> numpy.ndarray:
+    return numpy.dot(numpy.asarray(matrix), numpy.asarray(vector))
+
+print(matrix_vector_product(matrix=matrix, vector=vector))
+
+print(numpy_matrix_vector_product(matrix=matrix, vector=vector))
+
+
+
+
+
 
 
 
