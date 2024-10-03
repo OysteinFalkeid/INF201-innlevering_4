@@ -1,0 +1,46 @@
+innlevering 4
+
+Group members:
+
+Oystein Falkeid
+e-mail: oystein.falkeid@nmbu.no
+
+Eirik Mentyjaervi
+e-mail: 
+
+Task 0: Warmup exercise (0 points)
+
+enter project name: 
+project name is set to "Task 0"
+
+"Task 0" created
+
+Directories created:
+Task 0\data
+Task 0\output
+
+Files created:
+Task 0\data\data.txt
+
+
+Task 1: Exercise folder creation (5 points)
+
+these directories are created:
+projects\exercise_1\Ole
+projects\exercise_1\Sarah
+projects\exercise_2\Ole
+projects\exercise_2\Sarah
+projects\exercise_3A\Ole
+projects\exercise_3A\Sarah
+projects\exercise_3B\Ole
+projects\exercise_3B\Sarah
+projects\exercise_4A\Ole
+projects\exercise_4A\Sarah
+projects\exercise_4B\Ole
+projects\exercise_4B\Sarah
+
+Task 2: Challenge Exercise (0 points)
+
+true if the dot product is equal: True
+python used 7.98s
+numpy used 3.59s

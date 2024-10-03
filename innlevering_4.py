@@ -1,9 +1,9 @@
-'''
+
 import sys
 from pathlib import Path
 
+#printer til fil i stedenfor terminal
 file = Path('.') / Path('terminal.txt')
-
 sys.stdout = open(file, 'w')
 
 print('innlevering 4')
@@ -85,25 +85,35 @@ from pathlib import Path
 
 def create_project_folder(project_name: str = 'No name deffined') -> None:
     print(f'project name is set to \"{project_name}\"')
+    print()
     project_dir = Path('.') / Path(project_name)
     
     if not project_dir.is_dir(): #tests if directory exists
         project_dir.mkdir()
         print(f'\"{project_name}\" created')
+        print()
         
         sub_dir_1 = project_dir / Path('data')
         sub_dir_1.mkdir()
         sub_dir_2 = project_dir / Path('output')
         sub_dir_2.mkdir()
         
+        with open((sub_dir_1 / Path('data.txt')), 'w', encoding='utf_8') as f: #creates an empty txt file.
+            pass
+        
         directories = list(project_dir.glob('*'))
         
         print('Directories created:')
         for dir in directories:
             print(dir)
+        print()
+            
+        files = list(project_dir.glob('*/*'))
         
-        with open((sub_dir_1 / Path('data.txt')), 'w', encoding='utf_8') as f: #creates an empty txt file.
-            pass
+        print('Files created:')
+        for file in files:
+            print(file)
+        print()
         
     else: # Aborts if the directory exists
         print(f'A directory with name \"{project_name}\" already exists')
@@ -182,7 +192,7 @@ print()
 # 4 Print out the generated file structure with the glob function.
 
 #-------------------------------------------------------------------------------------------------------------------
-'''
+
 print('Task 1: Exercise folder creation (5 points)')
 print()
 
@@ -195,7 +205,7 @@ def create_exercises(total_number: int = 0, project_assignments_start: int = 0) 
     return [f'{i+1}' 
             if i < project_assignments_start else f'{i+1}{chr(65 + j)}' 
             for i in range(total_number) 
-            for j in (range(2) if i >= project_assignments_start else [0])]
+            for j in (range(2) if i >= project_assignments_start else [0])] # en linje
 
 exercises = create_exercises(4, 2) # the exercises spessified
 students = ['Ole', 'Sarah'] # the students spesified
@@ -247,36 +257,47 @@ print()
 from typing import Union
 import numpy
 import random
+import time
  
 print('Task 2: Challenge Exercise (0 points)')
 print()
 
-dimentions = random.randrange(3,10,1)
+dimentions = 10000
 
-matrix = [[random.randint(0,100) for i in range(dimentions)] for j in range(dimentions)]
-vector = [ random.randint(0,100) for i in range(dimentions)]
+matrix = numpy.random.randint(0, 100, size=(dimentions, dimentions)).tolist()
+vector = numpy.random.randint(0, 100, size=dimentions).tolist()
 
-for row in matrix:
-    print(row)
-print()
-print(vector)
-print()
 
-def matrix_vector_product(matrix: list[list[float]], vector: list[list[float]]) -> list[list[float]]:
+def matrix_vector_product(matrix: list[list[Union[float,int]]], vector: list[list[Union[float, int]]]) -> list:
     dot_product = [ 0 for j in vector]
-    for ma_row in matrix:
-        for vec_index, vec_value in enumerate(vector):
-            for ma_value in ma_row:
-                dot_product[vec_index] += ma_value * vec_value
-                print(f' {dot_product}  {ma_value}  {vec_value}')
+    shape = len(matrix)
+    range_of_shape = range(shape)
+    for i in range_of_shape:
+        for j in range_of_shape:
+            dot_product[i] += matrix[i][j] * vector[j]    
     return dot_product
 
 def numpy_matrix_vector_product(matrix: Union[list[list[float]], numpy.ndarray], vector: Union[list[list[float]], numpy.ndarray]) -> numpy.ndarray:
     return numpy.dot(numpy.asarray(matrix), numpy.asarray(vector))
 
-print(matrix_vector_product(matrix=matrix, vector=vector))
 
-print(numpy_matrix_vector_product(matrix=matrix, vector=vector))
+
+python_start_time = time.time()
+
+dot_python = matrix_vector_product(matrix=matrix, vector=vector)
+
+numpy_start_time = time.time()
+
+dot_numpy = numpy_matrix_vector_product(matrix=matrix, vector=vector)
+
+end_time = time.time()
+
+
+print(f'true if the dot product is equal: {numpy.allclose(numpy.asarray(dot_python), dot_numpy)}')
+print(f'python used {round((numpy_start_time - python_start_time)*100)/100}s')
+print(f'numpy used {round((end_time - numpy_start_time)*100)/100}s')
+
+
 
 
 
