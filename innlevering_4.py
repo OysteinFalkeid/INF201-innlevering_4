@@ -1,3 +1,12 @@
+# innlevering 4
+
+# Group members:
+
+# Oystein Falkeid
+# e-mail: oystein.falkeid@nmbu.no
+
+# Eirik Mentyjaervi
+# e-mail: eirik.mentyjarvi@nmbu.no
 
 import sys
 from pathlib import Path
@@ -13,7 +22,8 @@ print()
 # Work on this exercise together with your partner. 
 # Do not share your code with other groups. 
 # Use VSCode, virtual environments, and a "requirements.txt" file to install and document packages. 
-# Only one person in the group hands in the assignment. 
+# Only one persontest
+# in the group hands in the assignment. 
 # Send a screenshot of the submission notification so that both of you know the exercise has been submitted. 
 # Indicate both your names and NMBU email addresses on top of your .py file or your notebook. 
 # Only share code with your project partner. 
@@ -46,7 +56,7 @@ print('Oystein Falkeid')
 print('e-mail: oystein.falkeid@nmbu.no')
 print()
 print('Eirik Mentyjaervi')
-print('e-mail: ')   
+print('e-mail: eirik.mentyjarvi@nmbu.no')   
 print()                  
 
 #-------------------------------------------------------------------------------------------------------------------
@@ -255,7 +265,6 @@ print()
 
 from typing import Union
 import numpy
-import random
 import time
  
 print('Task 2: Challenge Exercise (0 points)')
