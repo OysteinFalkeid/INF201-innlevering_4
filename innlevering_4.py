@@ -93,12 +93,12 @@ def create_project_folder(project_name: str = 'No name deffined') -> None:
         print(f'\"{project_name}\" created')
         print()
         
-        sub_dir_1 = project_dir / Path('data')
-        sub_dir_1.mkdir()
-        sub_dir_2 = project_dir / Path('output')
-        sub_dir_2.mkdir()
+        data_dir = project_dir / Path('data')
+        data_dir.mkdir()
+        output_dir = project_dir / Path('output')
+        output_dir.mkdir()
         
-        with open((sub_dir_1 / Path('data.txt')), 'w', encoding='utf_8') as f: #creates an empty txt file.
+        with open((data_dir / Path('data.txt')), 'w', encoding='utf_8') as f: #creates an empty txt file.
             pass
         
         directories = list(project_dir.glob('*'))
@@ -199,14 +199,13 @@ print()
 
 from pathlib import Path # imports Path to be used in the creation of directories
 
-projects_dir = Path('.') / Path('projects') # the directori to be filled with exercises
-
 def create_exercises(total_number: int = 0, project_assignments_start: int = 0) -> list[str]: # returns a list of exercises that confines to the spesified perameters
     return [f'{i+1}' 
             if i < project_assignments_start else f'{i+1}{chr(65 + j)}' 
             for i in range(total_number) 
             for j in (range(2) if i >= project_assignments_start else [0])] # en linje
 
+projects_dir = Path('.') / Path('projects') # the directori to be filled with exercises
 exercises = create_exercises(4, 2) # the exercises spessified
 students = ['Ole', 'Sarah'] # the students spesified
 

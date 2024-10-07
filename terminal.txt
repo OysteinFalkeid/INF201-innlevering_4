@@ -42,5 +42,5 @@ projects\exercise_4B\Sarah
 Task 2: Challenge Exercise (0 points)
 
 true if the dot product is equal: True
-python used 7.98s
-numpy used 3.59s
+python used 7.71s
+numpy used 3.45s
